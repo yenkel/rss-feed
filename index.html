@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React App Setup</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <script type="text/javascript" src="build/bundle.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAm-k7EIeXcXI1DN1X0aRRFcaM7KXnbgC8",
+        authDomain: "twitch-chat-20232.firebaseapp.com",
+        databaseURL: "https://twitch-chat-20232.firebaseio.com",
+        projectId: "twitch-chat-20232",
+        storageBucket: "twitch-chat-20232.appspot.com",
+        messagingSenderId: "451433116044"
+    };
+    firebase.initializeApp(config);
+    </script>
+</body>
+
+</html>
