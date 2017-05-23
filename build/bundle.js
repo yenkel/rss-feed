@@ -22102,13 +22102,29 @@ var Chat = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props, context));
 
+        _this.updateMessage = _this.updateMessage.bind(_this);
+        _this.submitMessage = _this.submitMessage.bind(_this);
         _this.state = {
+            message: "",
             messages: [{ id: 0, text: 'first message' }, { id: 1, text: 'second message' }, { id: 2, text: 'third message' }]
         };
         return _this;
     }
 
     _createClass(Chat, [{
+        key: 'updateMessage',
+        value: function updateMessage(event) {
+            console.log('updateMessage: ' + event.target.value);
+            this.setState({
+                message: event.target.value
+            });
+        }
+    }, {
+        key: 'submitMessage',
+        value: function submitMessage(event) {
+            console.log('submitMessage: ' + this.state.message);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var currentMessage = this.state.messages.map(function (message, i) {
@@ -22126,11 +22142,11 @@ var Chat = function (_Component) {
                     null,
                     currentMessage
                 ),
-                _react2.default.createElement('input', { type: 'text', placeholder: 'Message' }),
+                _react2.default.createElement('input', { onChange: this.updateMessage, type: 'text', placeholder: 'Message' }),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'button',
-                    null,
+                    { onClick: this.submitMessage },
                     'Submit message'
                 )
             );

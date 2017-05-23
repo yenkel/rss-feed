@@ -4,13 +4,27 @@ class Chat extends Component {
 
     constructor(props, context) {
         super(props, context)
+        this.updateMessage = this.updateMessage.bind(this)
+        this.submitMessage = this.submitMessage.bind(this)
         this.state = {
+            message: "",
             messages: [
                 { id: 0, text: 'first message' },
                 { id: 1, text: 'second message' },
                 { id: 2, text: 'third message' }
             ]
         }
+    }
+
+    updateMessage(event) {
+        console.log('updateMessage: ' + event.target.value);
+        this.setState({
+            message: event.target.value
+        })
+    }
+
+    submitMessage(event) {
+        console.log('submitMessage: ' + this.state.message)
     }
 
     render() {
@@ -25,9 +39,9 @@ class Chat extends Component {
                 <ol>
                   {currentMessage}
                 </ol>
-                <input type="text" placeholder="Message" />
+                <input onChange={this.updateMessage} type="text" placeholder="Message" />
                 <br/>
-                <button>Submit message</button>
+                <button onClick={this.submitMessage}>Submit message</button>
             </div>
         );
     }
