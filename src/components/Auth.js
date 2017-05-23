@@ -10,7 +10,18 @@ class Auth extends Component {
 
     signIn() {
         // console.log('button connected')
-        firebase.auth().signInAnonymously();
+        firebase.auth().signInAnonymously().catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/operation-not-allowed') {
+                alert('You must enable Anonymous auth in the Firebase Console.');
+            } else {
+                console.error(error);
+            }
+            // [END_EXCLUDE]
+        });
         firebase.auth().onAuthStateChanged(firebaseUser => {
             console.log(firebaseUser)
         })
@@ -24,12 +35,13 @@ class Auth extends Component {
     signOut() {
         // console.log('button connected')
         firebase.auth().signOut();
+        btnLogout.classList.add('hide');
     }
 
     render() {
         return (
             <div>
-               <h1>Anonymous Login </h1>
+               <br/>
                <a id="btnLogin" href="#" onClick={this.signIn}>Login</a>
                <br/>
                <a id="btnLogout" href="#" className="hide" onClick={this.signOut}>Logout</a> 

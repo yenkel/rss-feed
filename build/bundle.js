@@ -9592,6 +9592,7 @@ var Chat = function (_Component) {
     }, {
         key: 'submitMessage',
         value: function submitMessage(event) {
+
             console.log('submitMessage: ' + this.state.message);
 
             //Declare the message that will be posted
@@ -9608,6 +9609,7 @@ var Chat = function (_Component) {
             // this.setState({
             //     messages: list
             // })
+
         }
     }, {
         key: 'render',
@@ -9678,6 +9680,10 @@ var _Auth = __webpack_require__(183);
 
 var _Auth2 = _interopRequireDefault(_Auth);
 
+var _Clock = __webpack_require__(184);
+
+var _Clock2 = _interopRequireDefault(_Clock);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9705,6 +9711,17 @@ var App = function (_Component) {
                     'h1',
                     null,
                     'Welcome to Twitch chat!!'
+                ),
+                _react2.default.createElement(_Clock2.default, null),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Enter your username: '
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'Username' })
                 ),
                 _react2.default.createElement(_Auth2.default, null),
                 _react2.default.createElement(_Chat2.default, null)
@@ -22246,7 +22263,18 @@ var Auth = function (_Component) {
         key: 'signIn',
         value: function signIn() {
             // console.log('button connected')
-            firebase.auth().signInAnonymously();
+            firebase.auth().signInAnonymously().catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // [START_EXCLUDE]
+                if (errorCode === 'auth/operation-not-allowed') {
+                    alert('You must enable Anonymous auth in the Firebase Console.');
+                } else {
+                    console.error(error);
+                }
+                // [END_EXCLUDE]
+            });
             firebase.auth().onAuthStateChanged(function (firebaseUser) {
                 console.log(firebaseUser);
             });
@@ -22261,6 +22289,7 @@ var Auth = function (_Component) {
         value: function signOut() {
             // console.log('button connected')
             firebase.auth().signOut();
+            btnLogout.classList.add('hide');
         }
     }, {
         key: 'render',
@@ -22268,11 +22297,7 @@ var Auth = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Anonymous Login '
-                ),
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'a',
                     { id: 'btnLogin', href: '#', onClick: this.signIn },
@@ -22292,6 +22317,87 @@ var Auth = function (_Component) {
 }(_react.Component);
 
 exports.default = Auth;
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Clock = function (_Component) {
+    _inherits(Clock, _Component);
+
+    function Clock(props) {
+        _classCallCheck(this, Clock);
+
+        var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this, props));
+
+        _this.state = { date: new Date() };
+        return _this;
+    }
+
+    _createClass(Clock, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.timerID = setInterval(function () {
+                return _this2.tick();
+            }, 1000);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            clearInterval(this.timerID);
+        }
+    }, {
+        key: 'tick',
+        value: function tick() {
+            this.setState({
+                date: new Date()
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var date = this.state.date;
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'It is ',
+                    this.state.date.toLocaleTimeString(),
+                    '.'
+                )
+            );
+        }
+    }]);
+
+    return Clock;
+}(_react.Component);
+
+exports.default = Clock;
 
 /***/ })
 /******/ ]);

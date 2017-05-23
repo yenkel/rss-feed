@@ -39,6 +39,7 @@ class Chat extends Component {
 
     //Connected to the submit button 
     submitMessage(event) {
+
         console.log('submitMessage: ' + this.state.message)
 
         //Declare the message that will be posted
@@ -50,11 +51,14 @@ class Chat extends Component {
         //Connect to firebase and set the message id in the database
         firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
 
+
         // var list = Object.assign([], this.state.messages)
         // list.push(nextMessage)
         // this.setState({
         //     messages: list
         // })
+
+
     }
 
     render() {
