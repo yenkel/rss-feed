@@ -8,14 +8,28 @@ class Chat extends Component {
         this.submitMessage = this.submitMessage.bind(this)
         this.state = {
             message: "",
-            messages: [
-                { id: 0, text: 'first message' },
-                { id: 1, text: 'second message' },
-                { id: 2, text: 'third message' }
-            ]
+            messages: []
         }
     }
 
+    //When the system loads
+    componentDidMount() {
+
+        // Connect to Firebase and listen to changes to update the database
+        firebase.database().ref('messages/').on('value', (snapshot) => {
+
+            const currentMessages = snapshot.val()
+
+            if (currentMessages != null) {
+                this.setState({
+                    messages: currentMessages
+                })
+            }
+        })
+    }
+
+
+    //Update message authomatically
     updateMessage(event) {
         console.log('updateMessage: ' + event.target.value);
         this.setState({
@@ -23,8 +37,24 @@ class Chat extends Component {
         })
     }
 
+    //Connected to the submit button 
     submitMessage(event) {
         console.log('submitMessage: ' + this.state.message)
+
+        //Declare the message that will be posted
+        const nextMessage = {
+            id: this.state.messages.length,
+            text: this.state.message
+        }
+
+        //Connect to firebase and set the message id in the database
+        firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
+
+        // var list = Object.assign([], this.state.messages)
+        // list.push(nextMessage)
+        // this.setState({
+        //     messages: list
+        // })
     }
 
     render() {

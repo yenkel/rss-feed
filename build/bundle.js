@@ -22106,12 +22106,35 @@ var Chat = function (_Component) {
         _this.submitMessage = _this.submitMessage.bind(_this);
         _this.state = {
             message: "",
-            messages: [{ id: 0, text: 'first message' }, { id: 1, text: 'second message' }, { id: 2, text: 'third message' }]
+            messages: []
         };
         return _this;
     }
 
+    //When the system loads
+
+
     _createClass(Chat, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            // Connect to Firebase and listen to changes to update the database
+            firebase.database().ref('messages/').on('value', function (snapshot) {
+
+                var currentMessages = snapshot.val();
+
+                if (currentMessages != null) {
+                    _this2.setState({
+                        messages: currentMessages
+                    });
+                }
+            });
+        }
+
+        //Update message authomatically
+
+    }, {
         key: 'updateMessage',
         value: function updateMessage(event) {
             console.log('updateMessage: ' + event.target.value);
@@ -22119,10 +22142,28 @@ var Chat = function (_Component) {
                 message: event.target.value
             });
         }
+
+        //Connected to the submit button 
+
     }, {
         key: 'submitMessage',
         value: function submitMessage(event) {
             console.log('submitMessage: ' + this.state.message);
+
+            //Declare the message that will be posted
+            var nextMessage = {
+                id: this.state.messages.length,
+                text: this.state.message
+            };
+
+            //Connect to firebase and set the message id in the database
+            firebase.database().ref('messages/' + nextMessage.id).set(nextMessage);
+
+            // var list = Object.assign([], this.state.messages)
+            // list.push(nextMessage)
+            // this.setState({
+            //     messages: list
+            // })
         }
     }, {
         key: 'render',
