@@ -31,7 +31,7 @@ class Chat extends Component {
 
     //Update message authomatically
     updateMessage(event) {
-        console.log('updateMessage: ' + event.target.value);
+        // console.log('updateMessage: ' + event.target.value)
         this.setState({
             message: event.target.value
         })
