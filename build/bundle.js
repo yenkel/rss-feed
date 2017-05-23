@@ -22097,19 +22097,42 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Chat = function (_Component) {
     _inherits(Chat, _Component);
 
-    function Chat() {
+    function Chat(props, context) {
         _classCallCheck(this, Chat);
 
-        return _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props, context));
+
+        _this.state = {
+            messages: [{ id: 0, text: 'first message' }, { id: 1, text: 'second message' }, { id: 2, text: 'third message' }]
+        };
+        return _this;
     }
 
     _createClass(Chat, [{
         key: 'render',
         value: function render() {
+            var currentMessage = this.state.messages.map(function (message, i) {
+                return _react2.default.createElement(
+                    'li',
+                    { key: message.id },
+                    message.text
+                );
+            });
             return _react2.default.createElement(
                 'div',
                 null,
-                'This is the Chat Component'
+                _react2.default.createElement(
+                    'ol',
+                    null,
+                    currentMessage
+                ),
+                _react2.default.createElement('input', { type: 'text', placeholder: 'Message' }),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'button',
+                    null,
+                    'Submit message'
+                )
             );
         }
     }]);
