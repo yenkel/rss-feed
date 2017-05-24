@@ -4,11 +4,13 @@ class Chat extends Component {
 
     constructor(props, context) {
         super(props, context)
+        this.username = this.username.bind(this)
         this.updateMessage = this.updateMessage.bind(this)
         this.submitMessage = this.submitMessage.bind(this)
         this.state = {
             message: "",
-            messages: []
+            messages: [],
+            username: ""
         }
     }
 
@@ -25,6 +27,12 @@ class Chat extends Component {
                     messages: currentMessages
                 })
             }
+        })
+    }
+
+    username(event) {
+        this.setState({
+            username: event.target.value
         })
     }
 
@@ -45,18 +53,19 @@ class Chat extends Component {
         //Declare the message that will be posted
         const nextMessage = {
             id: this.state.messages.length,
-            text: this.state.message
+            text: this.state.message,
+            username: this.state.username
         }
 
         //Connect to firebase and set the message id in the database
-        firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
+        // firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
 
 
-        // var list = Object.assign([], this.state.messages)
-        // list.push(nextMessage)
-        // this.setState({
-        //     messages: list
-        // })
+        var list = Object.assign([], this.state.messages)
+        list.push(nextMessage)
+        this.setState({
+            messages: list
+        })
 
 
     }
@@ -64,12 +73,17 @@ class Chat extends Component {
     render() {
         const currentMessage = this.state.messages.map((message, i) => {
             return (
-                <li key={message.id}>{message.text}</li>
+                <li key={message.id}><span style={{color: "red"}}>{message.username}</span>-{message.text}</li>
             )
         })
         return (
 
-            <div> 
+
+            <div>
+               <div>
+                  <h3>Enter your username: </h3>
+                  <input placeholder="Username" onChange={this.username} />
+               </div> 
                 <ol>
                   {currentMessage}
                 </ol>

@@ -9546,11 +9546,13 @@ var Chat = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props, context));
 
+        _this.username = _this.username.bind(_this);
         _this.updateMessage = _this.updateMessage.bind(_this);
         _this.submitMessage = _this.submitMessage.bind(_this);
         _this.state = {
             message: "",
-            messages: []
+            messages: [],
+            username: ""
         };
         return _this;
     }
@@ -9559,7 +9561,7 @@ var Chat = function (_Component) {
 
 
     _createClass(Chat, [{
-        key: 'componentDidMount',
+        key: "componentDidMount",
         value: function componentDidMount() {
             var _this2 = this;
 
@@ -9575,11 +9577,18 @@ var Chat = function (_Component) {
                 }
             });
         }
+    }, {
+        key: "username",
+        value: function username(event) {
+            this.setState({
+                username: event.target.value
+            });
+        }
 
         //Update message authomatically
 
     }, {
-        key: 'updateMessage',
+        key: "updateMessage",
         value: function updateMessage(event) {
             // console.log('updateMessage: ' + event.target.value)
             this.setState({
@@ -9590,7 +9599,7 @@ var Chat = function (_Component) {
         //Connected to the submit button 
 
     }, {
-        key: 'submitMessage',
+        key: "submitMessage",
         value: function submitMessage(event) {
 
             console.log('submitMessage: ' + this.state.message);
@@ -9598,43 +9607,60 @@ var Chat = function (_Component) {
             //Declare the message that will be posted
             var nextMessage = {
                 id: this.state.messages.length,
-                text: this.state.message
+                text: this.state.message,
+                username: this.state.username
             };
 
             //Connect to firebase and set the message id in the database
-            firebase.database().ref('messages/' + nextMessage.id).set(nextMessage);
+            // firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
 
-            // var list = Object.assign([], this.state.messages)
-            // list.push(nextMessage)
-            // this.setState({
-            //     messages: list
-            // })
 
+            var list = Object.assign([], this.state.messages);
+            list.push(nextMessage);
+            this.setState({
+                messages: list
+            });
         }
     }, {
-        key: 'render',
+        key: "render",
         value: function render() {
             var currentMessage = this.state.messages.map(function (message, i) {
                 return _react2.default.createElement(
-                    'li',
+                    "li",
                     { key: message.id },
+                    _react2.default.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        message.username
+                    ),
+                    "-",
                     message.text
                 );
             });
             return _react2.default.createElement(
-                'div',
+                "div",
                 null,
                 _react2.default.createElement(
-                    'ol',
+                    "div",
+                    null,
+                    _react2.default.createElement(
+                        "h3",
+                        null,
+                        "Enter your username: "
+                    ),
+                    _react2.default.createElement("input", { placeholder: "Username", onChange: this.username })
+                ),
+                _react2.default.createElement(
+                    "ol",
                     null,
                     currentMessage
                 ),
-                _react2.default.createElement('input', { onChange: this.updateMessage, type: 'text', placeholder: 'Message' }),
-                _react2.default.createElement('br', null),
+                _react2.default.createElement("input", { onChange: this.updateMessage, type: "text", placeholder: "Message" }),
+                _react2.default.createElement("br", null),
                 _react2.default.createElement(
-                    'button',
+                    "button",
                     { onClick: this.submitMessage },
-                    'Submit message'
+                    "Submit message"
                 )
             );
         }
@@ -9713,16 +9739,6 @@ var App = function (_Component) {
                     'Welcome to Twitch chat!!'
                 ),
                 _react2.default.createElement(_Clock2.default, null),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Enter your username: '
-                    ),
-                    _react2.default.createElement('input', { placeholder: 'Username' })
-                ),
                 _react2.default.createElement(_Auth2.default, null),
                 _react2.default.createElement(_Chat2.default, null)
             );
