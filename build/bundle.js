@@ -9624,6 +9624,7 @@ var Chat = function (_Component) {
     }, {
         key: "render",
         value: function render() {
+
             var currentMessage = this.state.messages.map(function (message, i) {
                 return _react2.default.createElement(
                     "li",
@@ -9637,32 +9638,40 @@ var Chat = function (_Component) {
                     message.text
                 );
             });
-            return _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
+            if (this.props.firebaseUser) {
+                return _react2.default.createElement(
                     "div",
                     null,
                     _react2.default.createElement(
-                        "h3",
+                        "div",
                         null,
-                        "Enter your username: "
+                        _react2.default.createElement(
+                            "h3",
+                            null,
+                            "Enter your username: "
+                        ),
+                        _react2.default.createElement("input", { placeholder: "Username", onChange: this.username })
                     ),
-                    _react2.default.createElement("input", { placeholder: "Username", onChange: this.username })
-                ),
-                _react2.default.createElement(
-                    "ol",
+                    _react2.default.createElement(
+                        "ol",
+                        null,
+                        currentMessage
+                    ),
+                    _react2.default.createElement("input", { onChange: this.updateMessage, type: "text", placeholder: "Message" }),
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                        "button",
+                        { onClick: this.submitMessage },
+                        "Submit message"
+                    )
+                );
+            } else {
+                return _react2.default.createElement(
+                    "h1",
                     null,
-                    currentMessage
-                ),
-                _react2.default.createElement("input", { onChange: this.updateMessage, type: "text", placeholder: "Message" }),
-                _react2.default.createElement("br", null),
-                _react2.default.createElement(
-                    "button",
-                    { onClick: this.submitMessage },
-                    "Submit message"
-                )
-            );
+                    "Welcome"
+                );
+            }
         }
     }]);
 
@@ -9721,13 +9730,26 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_Component) {
     _inherits(App, _Component);
 
-    function App() {
+    function App(props, context) {
         _classCallCheck(this, App);
 
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
+
+        _this.saveFirebaseUser = _this.saveFirebaseUser.bind(_this);
+        _this.state = {
+            firebaseUser: ""
+        };
+        return _this;
     }
 
     _createClass(App, [{
+        key: 'saveFirebaseUser',
+        value: function saveFirebaseUser(firebaseUser) {
+            this.setState({
+                firebaseUser: firebaseUser
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -9739,8 +9761,8 @@ var App = function (_Component) {
                     'Welcome to Twitch chat!!'
                 ),
                 _react2.default.createElement(_Clock2.default, null),
-                _react2.default.createElement(_Auth2.default, null),
-                _react2.default.createElement(_Chat2.default, null)
+                _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser }),
+                _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
             );
         }
     }]);
@@ -22278,6 +22300,8 @@ var Auth = function (_Component) {
     _createClass(Auth, [{
         key: 'signIn',
         value: function signIn() {
+            var _this2 = this;
+
             // console.log('button connected')
             firebase.auth().signInAnonymously().catch(function (error) {
                 // Handle Errors here.
@@ -22293,7 +22317,9 @@ var Auth = function (_Component) {
             });
             firebase.auth().onAuthStateChanged(function (firebaseUser) {
                 console.log(firebaseUser);
+                _this2.props.saveFirebaseUser(firebaseUser);
             });
+
             if (firebase) {
                 btnLogout.classList.remove('hide');
             } else {

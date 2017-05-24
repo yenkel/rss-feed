@@ -24,7 +24,10 @@ class Auth extends Component {
         });
         firebase.auth().onAuthStateChanged(firebaseUser => {
             console.log(firebaseUser)
+            this.props.saveFirebaseUser(firebaseUser)
+
         })
+
         if (firebase) {
             btnLogout.classList.remove('hide');
         } else {

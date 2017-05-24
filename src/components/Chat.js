@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Chat extends Component {
 
     constructor(props, context) {
@@ -71,15 +72,17 @@ class Chat extends Component {
     }
 
     render() {
+
         const currentMessage = this.state.messages.map((message, i) => {
             return (
                 <li key={message.id}><span style={{color: "red"}}>{message.username}</span>-{message.text}</li>
             )
         })
-        return (
+        if (this.props.firebaseUser) {
+            return (
 
 
-            <div>
+                <div>
                <div>
                   <h3>Enter your username: </h3>
                   <input placeholder="Username" onChange={this.username} />
@@ -91,7 +94,13 @@ class Chat extends Component {
                 <br/>
                 <button onClick={this.submitMessage}>Submit message</button>
             </div>
-        );
+            );
+        } else {
+            return (
+                <h1>Welcome</h1>
+
+            );
+        }
     }
 }
 
