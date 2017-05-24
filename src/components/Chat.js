@@ -6,12 +6,14 @@ class Chat extends Component {
     constructor(props, context) {
         super(props, context)
         this.username = this.username.bind(this)
+        this.date = this.date.bind(this)
         this.updateMessage = this.updateMessage.bind(this)
         this.submitMessage = this.submitMessage.bind(this)
         this.state = {
             message: "",
             messages: [],
-            username: ""
+            username: "",
+            date: new Date()
         }
     }
 
@@ -37,6 +39,12 @@ class Chat extends Component {
         })
     }
 
+    date(event) {
+        this.setState({
+            date: event.target.value
+        })
+    }
+
 
     //Update message authomatically
     updateMessage(event) {
@@ -55,7 +63,8 @@ class Chat extends Component {
         const nextMessage = {
             id: this.state.messages.length,
             text: this.state.message,
-            username: this.state.username
+            username: this.state.username,
+            date: this.state.date
         }
 
         //Connect to firebase and set the message id in the database
@@ -75,7 +84,7 @@ class Chat extends Component {
 
         const currentMessage = this.state.messages.map((message, i) => {
             return (
-                <li key={message.id}><span style={{color: "red"}}>{message.username}</span>-{message.text}</li>
+                <li key={message.id}><span style={{color: "red"}}>{message.username}</span>-{message.text}-<strong>{this.state.date.toLocaleTimeString()}</strong></li>
             )
         })
         if (this.props.firebaseUser) {
@@ -97,7 +106,7 @@ class Chat extends Component {
             );
         } else {
             return (
-                <h1>Welcome</h1>
+                <h1>Log In anonymously to use the chat!</h1>
 
             );
         }

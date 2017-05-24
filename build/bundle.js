@@ -9547,12 +9547,14 @@ var Chat = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props, context));
 
         _this.username = _this.username.bind(_this);
+        _this.date = _this.date.bind(_this);
         _this.updateMessage = _this.updateMessage.bind(_this);
         _this.submitMessage = _this.submitMessage.bind(_this);
         _this.state = {
             message: "",
             messages: [],
-            username: ""
+            username: "",
+            date: new Date()
         };
         return _this;
     }
@@ -9584,6 +9586,13 @@ var Chat = function (_Component) {
                 username: event.target.value
             });
         }
+    }, {
+        key: "date",
+        value: function date(event) {
+            this.setState({
+                date: event.target.value
+            });
+        }
 
         //Update message authomatically
 
@@ -9608,7 +9617,8 @@ var Chat = function (_Component) {
             var nextMessage = {
                 id: this.state.messages.length,
                 text: this.state.message,
-                username: this.state.username
+                username: this.state.username,
+                date: this.state.date
             };
 
             //Connect to firebase and set the message id in the database
@@ -9624,6 +9634,7 @@ var Chat = function (_Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this3 = this;
 
             var currentMessage = this.state.messages.map(function (message, i) {
                 return _react2.default.createElement(
@@ -9635,7 +9646,13 @@ var Chat = function (_Component) {
                         message.username
                     ),
                     "-",
-                    message.text
+                    message.text,
+                    "-",
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        _this3.state.date.toLocaleTimeString()
+                    )
                 );
             });
             if (this.props.firebaseUser) {
@@ -9669,7 +9686,7 @@ var Chat = function (_Component) {
                 return _react2.default.createElement(
                     "h1",
                     null,
-                    "Welcome"
+                    "Log In anonymously to use the chat!"
                 );
             }
         }
