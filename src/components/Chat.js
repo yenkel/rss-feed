@@ -87,26 +87,28 @@ class Chat extends Component {
                 <li key={message.id}><span style={{color: "red"}}>{message.username}</span>-{message.text}-<strong>{this.state.date.toLocaleTimeString()}</strong></li>
             )
         })
-        if (this.props.firebaseUser) {
+        if (!this.props.firebaseUser) {
             return (
-
-
                 <div>
-               <div>
-                  <h3>Enter your username: </h3>
-                  <input placeholder="Username" onChange={this.username} />
-               </div> 
-                <ol>
-                  {currentMessage}
-                </ol>
-                <input onChange={this.updateMessage} type="text" placeholder="Message" />
-                <br/>
-                <button onClick={this.submitMessage}>Submit message</button>
-            </div>
+                  <h3 className="auth">Firebase authentication</h3> 
+                  <br/>
+                  <h3 id="anonym"><em>Log in anonymously to use the chat</em></h3>
+                </div>
             );
         } else {
             return (
-                <h3 className="auth">Anonymous authentication</h3>
+                <div>
+                    <div>
+                      <h3>Enter your username: </h3>
+                      <input placeholder="Username" onChange={this.username} />
+                    </div> 
+                    <ol>
+                      {currentMessage}
+                    </ol>
+                    <input onChange={this.updateMessage} type="text" placeholder="Message" />
+                    <br/>
+                    <button onClick={this.submitMessage}>Submit message</button>
+                </div>
 
             );
         }

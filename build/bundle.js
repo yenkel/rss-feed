@@ -9655,7 +9655,27 @@ var Chat = function (_Component) {
                     )
                 );
             });
-            if (this.props.firebaseUser) {
+            if (!this.props.firebaseUser) {
+                return _react2.default.createElement(
+                    "div",
+                    null,
+                    _react2.default.createElement(
+                        "h3",
+                        { className: "auth" },
+                        "Firebase authentication"
+                    ),
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                        "h3",
+                        { id: "anonym" },
+                        _react2.default.createElement(
+                            "em",
+                            null,
+                            "Log in anonymously to use the chat"
+                        )
+                    )
+                );
+            } else {
                 return _react2.default.createElement(
                     "div",
                     null,
@@ -9681,12 +9701,6 @@ var Chat = function (_Component) {
                         { onClick: this.submitMessage },
                         "Submit message"
                     )
-                );
-            } else {
-                return _react2.default.createElement(
-                    "h3",
-                    { className: "auth" },
-                    "Anonymous authentication"
                 );
             }
         }
@@ -9785,10 +9799,10 @@ var App = function (_Component) {
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'div',
-                    { className: 'chat-container' },
+                    { className: 'auth-container' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'chat-container-header' },
+                        { className: 'auth-container-header' },
                         _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
                     ),
                     _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser })
@@ -22369,15 +22383,14 @@ var Auth = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement('br', null),
                 _react2.default.createElement(
-                    'a',
+                    'button',
                     { id: 'btnLogin', href: '#', onClick: this.signIn },
                     'Login'
                 ),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
-                    'a',
+                    'button',
                     { id: 'btnLogout', href: '#', className: 'hide', onClick: this.signOut },
                     'Logout'
                 )

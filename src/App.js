@@ -4,6 +4,7 @@ import Chat from './components/Chat';
 import Auth from './components/Auth';
 import Clock from './components/Clock';
 
+
 class App extends Component {
 
     constructor(props, context) {
@@ -21,6 +22,8 @@ class App extends Component {
     }
 
 
+
+
     render() {
         return (
             <div>
@@ -28,8 +31,10 @@ class App extends Component {
                  <h1>Welcome to my Chat!</h1><Clock />
               </header>
               <br/>
-              <div className="chat-container">
-                 <div className="chat-container-header"><Chat firebaseUser={this.state.firebaseUser}/></div>
+              <div className="auth-container">
+                 <div className="auth-container-header"><Chat firebaseUser={this.state.firebaseUser}/>
+              </div>
+
                   <Auth saveFirebaseUser={this.saveFirebaseUser}/>
                   
               </div>

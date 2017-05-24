@@ -44,10 +44,11 @@ class Auth extends Component {
     render() {
         return (
             <div>
+               
+               <button  id="btnLogin" href="#" onClick={this.signIn}>Login</button>
+
                <br/>
-               <a id="btnLogin" href="#" onClick={this.signIn}>Login</a>
-               <br/>
-               <a id="btnLogout" href="#" className="hide" onClick={this.signOut}>Logout</a> 
+               <button id="btnLogout" href="#" className="hide" onClick={this.signOut}>Logout</button> 
             </div>
         );
     }
