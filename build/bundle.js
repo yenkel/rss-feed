@@ -9684,9 +9684,9 @@ var Chat = function (_Component) {
                 );
             } else {
                 return _react2.default.createElement(
-                    "h1",
-                    null,
-                    "Log In anonymously to use the chat!"
+                    "h3",
+                    { className: "auth" },
+                    "Anonymous authentication"
                 );
             }
         }
@@ -9773,13 +9773,26 @@ var App = function (_Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'h1',
+                    'header',
                     null,
-                    'Welcome to Twitch chat!!'
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Welcome to my Chat!'
+                    ),
+                    _react2.default.createElement(_Clock2.default, null)
                 ),
-                _react2.default.createElement(_Clock2.default, null),
-                _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser }),
-                _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'chat-container' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'chat-container-header' },
+                        _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
+                    ),
+                    _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser })
+                )
             );
         }
     }]);
@@ -22440,15 +22453,9 @@ var Clock = function (_Component) {
         value: function render() {
             var date = this.state.date;
             return _react2.default.createElement(
-                'div',
+                'h2',
                 null,
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'It is ',
-                    this.state.date.toLocaleTimeString(),
-                    '.'
-                )
+                this.state.date.toLocaleTimeString()
             );
         }
     }]);

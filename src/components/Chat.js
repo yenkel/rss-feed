@@ -106,7 +106,7 @@ class Chat extends Component {
             );
         } else {
             return (
-                <h1>Log In anonymously to use the chat!</h1>
+                <h3 className="auth">Anonymous authentication</h3>
 
             );
         }

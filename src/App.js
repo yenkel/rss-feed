@@ -24,10 +24,15 @@ class App extends Component {
     render() {
         return (
             <div>
-               <h1>Welcome to Twitch chat!!</h1>
-               <Clock />
-               <Auth saveFirebaseUser={this.saveFirebaseUser}/>
-               <Chat firebaseUser={this.state.firebaseUser}/>
+              <header>
+                 <h1>Welcome to my Chat!</h1><Clock />
+              </header>
+              <br/>
+              <div className="chat-container">
+                 <div className="chat-container-header"><Chat firebaseUser={this.state.firebaseUser}/></div>
+                  <Auth saveFirebaseUser={this.saveFirebaseUser}/>
+                  
+              </div>
             </div>
         );
     }
