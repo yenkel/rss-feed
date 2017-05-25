@@ -9544,7 +9544,6 @@ var Chat = function (_Component) {
     function Chat(props, context) {
         _classCallCheck(this, Chat);
 
-        // this.username = this.username.bind(this)
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props, context));
 
         _this.date = _this.date.bind(_this);
@@ -9554,7 +9553,7 @@ var Chat = function (_Component) {
             message: "",
             messages: [],
             username: "",
-            date: new Date()
+            date: ""
         };
         return _this;
     }
@@ -9579,13 +9578,6 @@ var Chat = function (_Component) {
                 }
             });
         }
-
-        // username(event) {
-        //     this.setState({
-        //         username: event.target.value
-        //     })
-        // }
-
     }, {
         key: "date",
         value: function date(event) {
@@ -9617,61 +9609,65 @@ var Chat = function (_Component) {
             var nextMessage = {
                 id: this.state.messages.length,
                 text: this.state.message,
-                username: this.state.username,
-                date: this.state.date
+                username: this.props.username,
+                date: new Date().toLocaleTimeString()
             };
 
             //Connect to firebase and set the message id in the database
-            // firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
+            firebase.database().ref('messages/' + nextMessage.id).set(nextMessage);
 
+            // var list = Object.assign([], this.state.messages)
+            // list.push(nextMessage)
+            // this.setState({
+            //     messages: list
+            // })
 
-            var list = Object.assign([], this.state.messages);
-            list.push(nextMessage);
-            this.setState({
-                messages: list
-            });
         }
     }, {
         key: "render",
         value: function render() {
-            var _this3 = this;
 
             var currentMessage = this.state.messages.map(function (message, i) {
                 return _react2.default.createElement(
-                    "li",
+                    "p",
                     { key: message.id },
-                    _react2.default.createElement(
-                        "span",
-                        { style: { color: "red" } },
-                        message.username
-                    ),
-                    "-",
-                    message.text,
-                    "-",
                     _react2.default.createElement(
                         "strong",
                         null,
-                        _this3.state.date.toLocaleTimeString()
-                    )
+                        "[",
+                        message.date,
+                        "]"
+                    ),
+                    " - ",
+                    _react2.default.createElement(
+                        "span",
+                        { style: { color: "#9c27b0" } },
+                        message.username
+                    ),
+                    " : ",
+                    message.text
                 );
             });
             if (!this.props.firebaseUser) {
-                return _react2.default.createElement(
-                    "h1",
-                    null,
-                    "Hi"
-                );
+                return _react2.default.createElement("p", null);
             } else {
                 return _react2.default.createElement(
                     "div",
-                    null,
+                    { className: "chat-container" },
                     _react2.default.createElement(
                         "div",
                         null,
                         _react2.default.createElement(
                             "h3",
                             null,
-                            "Enter your username: "
+                            "Welcome to the chat room ",
+                            _react2.default.createElement(
+                                "em",
+                                null,
+                                this.props.username,
+                                "!"
+                            ),
+                            " "
                         )
                     ),
                     _react2.default.createElement(
@@ -9679,11 +9675,11 @@ var Chat = function (_Component) {
                         null,
                         currentMessage
                     ),
-                    _react2.default.createElement("input", { onChange: this.updateMessage, type: "text", placeholder: "Message" }),
+                    _react2.default.createElement("input", { onChange: this.updateMessage, type: "text", placeholder: "Enter your message" }),
                     _react2.default.createElement("br", null),
                     _react2.default.createElement(
                         "button",
-                        { onClick: this.submitMessage },
+                        { id: "submit", onClick: this.submitMessage },
                         "Submit message"
                     )
                 );
@@ -9787,7 +9783,7 @@ var App = function (_Component) {
                 _react2.default.createElement(_Header2.default, null),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser, username: this.username }),
-                _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
+                _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser, username: this.state.username })
             );
         }
     }]);
@@ -22364,37 +22360,44 @@ var Auth = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                { className: 'auth-container' },
+                null,
                 _react2.default.createElement(
                     'div',
-                    { className: 'auth-container-header' },
+                    { className: 'auth-container ' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'auth-container-header' },
+                        _react2.default.createElement(
+                            'h3',
+                            { className: 'auth' },
+                            'Firebase authentication'
+                        ),
+                        _react2.default.createElement('br', null)
+                    ),
                     _react2.default.createElement(
                         'h3',
-                        { className: 'auth' },
-                        'Firebase authentication'
+                        { id: 'anonym' },
+                        _react2.default.createElement(
+                            'em',
+                            null,
+                            ' Enter a username and Log in anonymously to use the chat'
+                        )
                     ),
-                    _react2.default.createElement('br', null)
-                ),
-                _react2.default.createElement(
-                    'h3',
-                    { id: 'anonym' },
+                    _react2.default.createElement('input', { placeholder: 'Username', onChange: this.props.username }),
                     _react2.default.createElement(
-                        'em',
-                        null,
-                        ' Enter a username and Log in anonymously to use the chat'
+                        'button',
+                        { id: 'btnLogin', href: '#', onClick: this.signIn },
+                        'Login'
                     )
                 ),
-                _react2.default.createElement('input', { placeholder: 'Username', onChange: this.props.username }),
                 _react2.default.createElement(
-                    'button',
-                    { id: 'btnLogin', href: '#', onClick: this.signIn },
-                    'Login'
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'button',
-                    { id: 'btnLogout', href: '#', className: 'hide', onClick: this.signOut },
-                    'Logout'
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'button',
+                        { id: 'btnLogout', href: '#', className: 'hide btn', onClick: this.signOut },
+                        'Logout'
+                    )
                 )
             );
         }

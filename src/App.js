@@ -6,6 +6,9 @@ import Clock from './components/Clock';
 import Header from './components/Header';
 
 
+
+
+
 class App extends Component {
 
     constructor(props, context) {
@@ -17,6 +20,8 @@ class App extends Component {
             username: ""
         }
     }
+
+
 
     saveFirebaseUser(firebaseUser) {
         this.setState({
@@ -38,8 +43,9 @@ class App extends Component {
             <div>
               <Header />
               <br/>
+              
               <Auth saveFirebaseUser={this.saveFirebaseUser} username={this.username}/>
-              <Chat firebaseUser={this.state.firebaseUser}/>
+              <Chat firebaseUser={this.state.firebaseUser} username={this.state.username}/>
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Auth extends Component {
 
     constructor(props, context) {
@@ -44,7 +45,8 @@ class Auth extends Component {
 
     render() {
         return (
-            <div className="auth-container">
+            <div>
+            <div className="auth-container ">
                <div className="auth-container-header">
                 <h3 className="auth">Firebase authentication</h3> 
                   <br/>
@@ -52,14 +54,12 @@ class Auth extends Component {
 
                <h3 id="anonym"><em> Enter a username and Log in anonymously to use the chat</em></h3>
                <input placeholder="Username" onChange={this.props.username} />
-
-                
-               
                <button  id="btnLogin" href="#" onClick={this.signIn}>Login</button>
-
-               <br/>
-               <button id="btnLogout" href="#" className="hide" onClick={this.signOut}>Logout</button> 
             </div>
+            <div>
+               <button id="btnLogout" href="#" className="hide btn" onClick={this.signOut}>Logout</button> 
+            </div>
+          </div>
         );
     }
 }

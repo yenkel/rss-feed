@@ -5,7 +5,6 @@ class Chat extends Component {
 
     constructor(props, context) {
         super(props, context)
-            // this.username = this.username.bind(this)
         this.date = this.date.bind(this)
         this.updateMessage = this.updateMessage.bind(this)
         this.submitMessage = this.submitMessage.bind(this)
@@ -13,7 +12,7 @@ class Chat extends Component {
             message: "",
             messages: [],
             username: "",
-            date: new Date()
+            date: ""
         }
     }
 
@@ -32,12 +31,6 @@ class Chat extends Component {
             }
         })
     }
-
-    // username(event) {
-    //     this.setState({
-    //         username: event.target.value
-    //     })
-    // }
 
     date(event) {
         this.setState({
@@ -63,47 +56,49 @@ class Chat extends Component {
         const nextMessage = {
             id: this.state.messages.length,
             text: this.state.message,
-            username: this.state.username,
-            date: this.state.date
+            username: this.props.username,
+            date: new Date().toLocaleTimeString()
         }
 
         //Connect to firebase and set the message id in the database
-        // firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
+        firebase.database().ref('messages/' + nextMessage.id).set(nextMessage)
 
 
-        var list = Object.assign([], this.state.messages)
-        list.push(nextMessage)
-        this.setState({
-            messages: list
-        })
+        // var list = Object.assign([], this.state.messages)
+        // list.push(nextMessage)
+        // this.setState({
+        //     messages: list
+        // })
 
 
     }
 
     render() {
 
+
+
         const currentMessage = this.state.messages.map((message, i) => {
             return (
-                <li key={message.id}><span style={{color: "red"}}>{message.username}</span>-{message.text}-<strong>{this.state.date.toLocaleTimeString()}</strong></li>
+                <p key={message.id}><strong>[{message.date}]</strong> - <span style={{color: "#9c27b0"}}>{message.username}</span> : {message.text}</p>
             )
         })
         if (!this.props.firebaseUser) {
             return (
-                <h1>Hi</h1>
+                <p></p>
             );
         } else {
             return (
-                <div>
+                <div className="chat-container">
                     <div>
-                      <h3>Enter your username: </h3>
+                      <h3>Welcome to the chat room <em>{this.props.username}!</em> </h3>
                       
                     </div> 
                     <ol>
                       {currentMessage}
                     </ol>
-                    <input onChange={this.updateMessage} type="text" placeholder="Message" />
+                    <input onChange={this.updateMessage} type="text" placeholder="Enter your message" />
                     <br/>
-                    <button onClick={this.submitMessage}>Submit message</button>
+                    <button id="submit" onClick={this.submitMessage}>Submit message</button>
                 </div>
 
             );
