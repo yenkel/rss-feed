@@ -6,6 +6,7 @@ class Auth extends Component {
         super(props, context)
         this.signIn = this.signIn.bind(this)
         this.signOut = this.signOut.bind(this)
+
     }
 
     signIn() {
@@ -43,11 +44,15 @@ class Auth extends Component {
 
     render() {
         return (
-            <div>
-
-                  <h3 className="auth">Firebase authentication</h3> 
+            <div className="auth-container">
+               <div className="auth-container-header">
+                <h3 className="auth">Firebase authentication</h3> 
                   <br/>
-                  <h3 id="anonym"><em>Log in anonymously to use the chat</em></h3>
+               </div>
+
+               <h3 id="anonym"><em> Enter a username and Log in anonymously to use the chat</em></h3>
+               <input placeholder="Username" onChange={this.props.username} />
+
                 
                
                <button  id="btnLogin" href="#" onClick={this.signIn}>Login</button>

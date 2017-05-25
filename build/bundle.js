@@ -9544,9 +9544,9 @@ var Chat = function (_Component) {
     function Chat(props, context) {
         _classCallCheck(this, Chat);
 
+        // this.username = this.username.bind(this)
         var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props, context));
 
-        _this.username = _this.username.bind(_this);
         _this.date = _this.date.bind(_this);
         _this.updateMessage = _this.updateMessage.bind(_this);
         _this.submitMessage = _this.submitMessage.bind(_this);
@@ -9579,13 +9579,13 @@ var Chat = function (_Component) {
                 }
             });
         }
-    }, {
-        key: "username",
-        value: function username(event) {
-            this.setState({
-                username: event.target.value
-            });
-        }
+
+        // username(event) {
+        //     this.setState({
+        //         username: event.target.value
+        //     })
+        // }
+
     }, {
         key: "date",
         value: function date(event) {
@@ -9672,8 +9672,7 @@ var Chat = function (_Component) {
                             "h3",
                             null,
                             "Enter your username: "
-                        ),
-                        _react2.default.createElement("input", { placeholder: "Username", onChange: this.username })
+                        )
                     ),
                     _react2.default.createElement(
                         "ol",
@@ -9757,8 +9756,10 @@ var App = function (_Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
 
         _this.saveFirebaseUser = _this.saveFirebaseUser.bind(_this);
+        _this.username = _this.username.bind(_this);
         _this.state = {
-            firebaseUser: ""
+            firebaseUser: "",
+            username: ""
         };
         return _this;
     }
@@ -9771,6 +9772,13 @@ var App = function (_Component) {
             });
         }
     }, {
+        key: 'username',
+        value: function username(event) {
+            this.setState({
+                username: event.target.value
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -9778,16 +9786,8 @@ var App = function (_Component) {
                 null,
                 _react2.default.createElement(_Header2.default, null),
                 _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'auth-container' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'auth-container-header' },
-                        _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
-                    ),
-                    _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser })
-                )
+                _react2.default.createElement(_Auth2.default, { saveFirebaseUser: this.saveFirebaseUser, username: this.username }),
+                _react2.default.createElement(_Chat2.default, { firebaseUser: this.state.firebaseUser })
             );
         }
     }]);
@@ -22319,6 +22319,7 @@ var Auth = function (_Component) {
 
         _this.signIn = _this.signIn.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
+
         return _this;
     }
 
@@ -22363,22 +22364,27 @@ var Auth = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'auth-container' },
                 _react2.default.createElement(
-                    'h3',
-                    { className: 'auth' },
-                    'Firebase authentication'
+                    'div',
+                    { className: 'auth-container-header' },
+                    _react2.default.createElement(
+                        'h3',
+                        { className: 'auth' },
+                        'Firebase authentication'
+                    ),
+                    _react2.default.createElement('br', null)
                 ),
-                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'h3',
                     { id: 'anonym' },
                     _react2.default.createElement(
                         'em',
                         null,
-                        'Log in anonymously to use the chat'
+                        ' Enter a username and Log in anonymously to use the chat'
                     )
                 ),
+                _react2.default.createElement('input', { placeholder: 'Username', onChange: this.props.username }),
                 _react2.default.createElement(
                     'button',
                     { id: 'btnLogin', href: '#', onClick: this.signIn },

@@ -52,6 +52,11 @@ h2 {
     font-size: 25px;
 }
 
+.auth-container input {
+    margin-left: 50px;
+    height: 20px;
+}
+
 #anonym {
     margin-left: 45px;
     font-size: 17px;
@@ -61,7 +66,7 @@ h2 {
     width: 60px;
     height: 25px;
     font-size: 15px;
-    margin-left: 150px;
+    margin-left: 60px;
 }
 
 .hide {

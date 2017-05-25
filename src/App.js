@@ -11,14 +11,22 @@ class App extends Component {
     constructor(props, context) {
         super(props, context)
         this.saveFirebaseUser = this.saveFirebaseUser.bind(this)
+        this.username = this.username.bind(this)
         this.state = {
-            firebaseUser: ""
+            firebaseUser: "",
+            username: ""
         }
     }
 
     saveFirebaseUser(firebaseUser) {
         this.setState({
             firebaseUser: firebaseUser
+        })
+    }
+
+    username(event) {
+        this.setState({
+            username: event.target.value
         })
     }
 
@@ -30,13 +38,8 @@ class App extends Component {
             <div>
               <Header />
               <br/>
-              <div className="auth-container">
-                 <div className="auth-container-header"><Chat firebaseUser={this.state.firebaseUser}/>
-              </div>
-
-                  <Auth saveFirebaseUser={this.saveFirebaseUser}/>
-                  
-              </div>
+              <Auth saveFirebaseUser={this.saveFirebaseUser} username={this.username}/>
+              <Chat firebaseUser={this.state.firebaseUser}/>
             </div>
         );
     }

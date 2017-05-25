@@ -5,7 +5,7 @@ class Chat extends Component {
 
     constructor(props, context) {
         super(props, context)
-        this.username = this.username.bind(this)
+            // this.username = this.username.bind(this)
         this.date = this.date.bind(this)
         this.updateMessage = this.updateMessage.bind(this)
         this.submitMessage = this.submitMessage.bind(this)
@@ -33,11 +33,11 @@ class Chat extends Component {
         })
     }
 
-    username(event) {
-        this.setState({
-            username: event.target.value
-        })
-    }
+    // username(event) {
+    //     this.setState({
+    //         username: event.target.value
+    //     })
+    // }
 
     date(event) {
         this.setState({
@@ -96,7 +96,7 @@ class Chat extends Component {
                 <div>
                     <div>
                       <h3>Enter your username: </h3>
-                      <input placeholder="Username" onChange={this.username} />
+                      
                     </div> 
                     <ol>
                       {currentMessage}
