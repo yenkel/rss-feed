@@ -89,11 +89,7 @@ class Chat extends Component {
         })
         if (!this.props.firebaseUser) {
             return (
-                <div>
-                  <h3 className="auth">Firebase authentication</h3> 
-                  <br/>
-                  <h3 id="anonym"><em>Log in anonymously to use the chat</em></h3>
-                </div>
+                <h1>Hi</h1>
             );
         } else {
             return (

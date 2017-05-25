@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Chat from './components/Chat';
 import Auth from './components/Auth';
 import Clock from './components/Clock';
+import Header from './components/Header';
 
 
 class App extends Component {
@@ -27,9 +28,7 @@ class App extends Component {
     render() {
         return (
             <div>
-              <header>
-                 <h1>Welcome to my Chat!</h1><Clock />
-              </header>
+              <Header />
               <br/>
               <div className="auth-container">
                  <div className="auth-container-header"><Chat firebaseUser={this.state.firebaseUser}/>

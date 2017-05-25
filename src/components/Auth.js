@@ -44,6 +44,11 @@ class Auth extends Component {
     render() {
         return (
             <div>
+
+                  <h3 className="auth">Firebase authentication</h3> 
+                  <br/>
+                  <h3 id="anonym"><em>Log in anonymously to use the chat</em></h3>
+                
                
                <button  id="btnLogin" href="#" onClick={this.signIn}>Login</button>
 
