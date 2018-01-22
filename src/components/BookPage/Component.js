@@ -10,7 +10,8 @@ class BookPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-       books: []
+       books: [],
+       genre: 'fiction'
     }
   }
   componentDidMount() {
@@ -23,8 +24,10 @@ class BookPage extends React.Component {
   render() {
     return (
       <div className={styles.root}>
-        <Pane title={'Books Library'}>
-           <BookContainer books={this.state.books} />
+        <Pane title={'Books Library'} className={styles.booksPaneContainer} classNameContainer={styles.paneContainer}>
+          <div className={styles.booksContainer}>
+            <BookContainer books={this.state.books} genre={this.state.genre}/>
+          </div>
         </Pane>
       </div>
     )
