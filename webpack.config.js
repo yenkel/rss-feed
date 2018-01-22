@@ -1,12 +1,5 @@
-var webpack = require("webpack");
-var path = require('path');
-
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-//     template: './client/index.html',
-//     filename: 'index.html',
-//     inject: 'body'
-// })
+const webpack = require("webpack")
+const path = require('path')
 
 module.exports = {
     entry: {
@@ -16,10 +9,7 @@ module.exports = {
         filename: "build/bundle.js",
         sourceMapFilename: "build/bundle.map"
     },
-    devtool: '#source-map',
-    // plugins: [
-    //     new webpack.optimize.UglifyJsPlugin({minimize: true}),
-    // ],   
+    devtool: '#source-map', 
     module: {
         loaders: [{
             test: /\.jsx?$/,
