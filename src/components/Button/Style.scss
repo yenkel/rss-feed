@@ -1,0 +1,79 @@
+
+@import "src/styles/constants/index.scss";
+
+.root {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 2em;
+  padding: 5px 0.825em;
+  min-width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  border: 1px solid $color-border;
+  color: $color-text-light;
+  cursor: pointer;
+  outline: none;
+  font-weight: normal;
+  margin: 0 4px;
+  line-height: 1;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+@mixin button($color) {
+  @extend .root;
+  background: $color;
+  &:not(.disabled):hover {
+    background: darken($color, 7%);
+    transition: 0.1s;
+  }
+}
+
+.primary { @include button($color-primary) }
+.secondary { @include button($color-secondary); color: $color-text; }
+.valid { @include button($color-valid) }
+.warning { @include button($color-warning) }
+.alert { @include button($color-alert) }
+
+.bid {
+  @include button(rgba($color-main, 0.4));
+  color: $color-bid;
+  &:not(.disabled):hover {
+    border-color: $color-bid;
+    color: $color-bid
+  }
+}
+
+.offer {
+  @include button(rgba($color-main, 0.4));
+  color: $color-offer;
+  &:not(.disabled):hover {
+    border-color: $color-offer;
+    color: $color-offer
+  }
+}
+
+.dark {
+  @include button(rgba($color-main, 0.4));
+  color: $color-text-light;
+  &:not(.disabled):hover {
+    border-color: $color-text-light;
+    color: $color-text-light
+  }
+}
+
+.best {
+  @include button(rgba($color-main, 0.4));
+  color: $color-you;
+  &:not(.disabled):hover {
+    border-color: $color-you;
+    color: $color-you
+  }
+}
+
+.disabled {
+  cursor: auto;
+  opacity: 0.5;
+}

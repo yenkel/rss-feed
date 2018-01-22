@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+// Components
+import BookPage from './components/BookPage'
 
 const App = React.createClass ({
     render() {
         return (
             <div>
-               <h1>Hi</h1>
+               <BookPage />
             </div>
         );
     }
