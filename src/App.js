@@ -6,10 +6,8 @@ import BookPage from './components/BookPage'
 const App = React.createClass ({
     render() {
         return (
-            <div>
-               <BookPage />
-            </div>
-        );
+            <BookPage />
+        )
     }
 })
 
