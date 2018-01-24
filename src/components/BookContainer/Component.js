@@ -12,7 +12,7 @@ class BookContainer extends React.Component {
     this._getBooksContent = this._getBooksContent.bind(this)
     this._toggleModal = this._toggleModal.bind(this)
     this._getBooksDescription = this._getBooksDescription.bind(this)
-    this._editBook = this._editBook.bind(this)
+    this._deleteBook = this._deleteBook.bind(this)
     this.state = {
       showModal: false
     }
@@ -21,6 +21,10 @@ class BookContainer extends React.Component {
     this.setState({
       showModal: index
     })
+  }
+  _deleteBook(books, index) {
+    window.alert(books[index].title + ' has been deleted')
+    this.props.onDelete(index)
   }
   _getBooksContent(books) {
     return (
@@ -35,7 +39,6 @@ class BookContainer extends React.Component {
        </div>
     )
   }
-
   _getBooksDescription(books) {
     if (books && books.length) {
       const booksList = books.map((book, index) => {
@@ -54,6 +57,9 @@ class BookContainer extends React.Component {
                   <Button styleName='valid' onClick={() => this._toggleModal(index)}>
                      {"Edit"}
                   </Button>
+                  <Button styleName='alert' onClick={() => this._deleteBook(books, index)}>
+                     {"Delete"}
+                  </Button>
                 </div>
              </div>
          )
@@ -66,7 +72,6 @@ class BookContainer extends React.Component {
       )
     }
   }
-
   _displayModal() {
     const { books } = this.props
        if (this.state.showModal !== false) {
@@ -80,15 +85,6 @@ class BookContainer extends React.Component {
          )
        }
   }
-
-  _onChange(name, value) {
-    console.log(name, value)
-  }
-
-  _editBook(book) {
-    // console.log(book)
-  }
-
   render() {
     const { books } = this.props
     return (
