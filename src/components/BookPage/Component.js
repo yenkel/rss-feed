@@ -9,6 +9,7 @@ import BookContainer from '../BookContainer'
 class BookPage extends React.Component {
   constructor(props) {
     super(props)
+    this._onSubmit = this._onSubmit.bind(this)
     this.state = {
        books: [],
        genre: 'fiction'
@@ -21,12 +22,25 @@ class BookPage extends React.Component {
           this.setState({ books })
       })
   }
+  _onSubmit(values, index) {
+     const newBooks = this.state.books.map((elem, i) => {
+       if (i === index) {
+         elem.title = values.title
+         elem.authors[0] = values.authors
+         elem.publishedDate = values.publishedDate
+       }
+       return elem
+     })
+     this.setState({
+       books: newBooks
+     })
+  }
   render() {
     return (
       <div className={styles.root}>
         <Pane title={'Books Library'} className={styles.booksPaneContainer} classNameContainer={styles.paneContainer}>
           <div className={styles.booksContainer}>
-            <BookContainer books={this.state.books} genre={this.state.genre}/>
+            <BookContainer books={this.state.books} genre={this.state.genre} onSubmit={this._onSubmit}/>
           </div>
         </Pane>
       </div>

@@ -1,0 +1,65 @@
+@import "../StylesConstants/index.scss";
+
+.root {
+  display: inline-block;
+}
+
+.popup {
+  position: relative;
+  bottom: 350px;
+  left: 30px;
+}
+
+.popup_inner {
+  position: absolute;
+  padding: 15px;
+  background: #f5f5f5;
+  height: auto;
+  width: 320px;
+  z-index: 99;
+  border-radius: 2px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.closeButton {
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  opacity: 0.8;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.submitButton {
+  z-index: 2;
+  position: relative;
+  right: 40;
+  bottom: 1px;
+  opacity: 0.8;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.editContainer {
+  display: inline-block;
+  text-align: left;
+  .section {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+  }
+  span {
+    font-size: 15px;
+  }
+  .input {
+    width: 80%;
+    float: right;
+  }
+}

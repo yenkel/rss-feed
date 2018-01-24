@@ -1,31 +1,71 @@
-.root {
-  background: red;
-}
 
-.valuationsHeader {
-  height: 50px;
+.booksHeader {
+  height: 30px;
   text-align: center;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 10px 10px 0;
-  display: block;
-
-  span {
-    font-weight: lighter;
-  }
-}
-
-.valuationsNumberContainer {
-  display: block;
-  padding-left: 6px;
+  text-transform: capitalize;
+  font-size: 18px;
   font-weight: 500;
-  font-size: 12px;
-  text-align: left;
+  padding: 10px;
+  display: block;
 }
 
-.interestsContainer {
+.libraryContainer {
   height: 100%;
   overflow-y: auto;
   display: block;
-  padding: 7px;
+  padding: 5px 35px;
+  text-align: center;
+  margin: auto;
+}
+
+.bookContainer {
+  height: 100px;
+  max-width: 390px;
+  min-width: 200px;
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  box-shadow: 0 2px 7px rgba(6, 6, 6, 0.2);
+  margin-bottom: 10px;
+  width: 50%;
+  margin-right: 50px;
+}
+
+.bookTitle {
+  background-color: #2B5FD9;
+  position: absolute;
+  height: 36px;
+  width: 100%;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  line-height: 2.2;
+  padding: 0 10px;
+  box-sizing: border-box;
+  color: white;
+  font-size: 16px;
+}
+
+.bookAuthor {
+  padding-left: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2D3240;
+  position: relative;
+  top: 50px;
+  width: 50%;
+  display: inline-block;
+  .bookDate {
+    opacity: 0.8;
+    display: block;
+    line-height: 2;
+  }
+}
+
+.buttonContainer {
+  float: right;
+  position: relative;
+  top: 60px;
+  right: 5px;
 }

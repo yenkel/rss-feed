@@ -1,0 +1,194 @@
+@import "normalize.css";
+@import "./index.scss";
+
+// General styles
+
+html {
+  background: $color-bg;
+  font-size: $size-base;
+  font-family: 'Roboto', sans-serif;
+  color: $color-text;
+  box-sizing: border-box;
+  min-width: 768px;
+
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: auto;
+}
+
+input, select {
+  line-height: 1.15;
+  padding: 5px 7px 4px;
+  border-radius: 2px;
+  border: 1px solid $color-border-on-light;
+}
+
+select {
+  /*for firefox*/
+  -moz-appearance: none;
+  /*for chrome*/
+  -webkit-appearance:none;
+  option {
+    color: $color-text;
+  }
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+select {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding-right: 14px;
+  background: url('./images/arrow-select.svg') no-repeat;
+  background-position: calc(100% - 5px);
+}
+
+textarea {
+  padding: 5px 7px 4px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid $color-border-on-light;
+}
+
+hr {
+  margin-bottom: 1em;
+  border: 1px solid $color-border-on-light;
+}
+
+
+input, select, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  &:focus {
+    outline-width: 4px;
+    // outline-style: solid;
+    outline-offset: 1px;
+  }
+}
+
+// Styling Cross-Browser Compatible Range Inputs with Sass
+// Github: https://github.com/darlanrod/input-range-sass
+// Author: Darlan Rod https://github.com/darlanrod
+// Version 1.4.1
+// MIT License
+
+$track-color: rgba(#2D3240, .15) !default;
+$thumb-color: #ffffff !default;
+
+$thumb-radius: 2px !default;
+$thumb-height: 16px !default;
+$thumb-width: 10px !default;
+$thumb-shadow-size: 0px !default;
+$thumb-shadow-blur: 2px !default;
+$thumb-shadow-color: rgba(0, 0, 0, .2) !default;
+$thumb-border-width: 0px !default;
+$thumb-border-color: #ddd !default;
+
+$track-width: 100% !default;
+$track-height: 8px !default;
+$track-shadow-size: 0 !default;
+$track-shadow-blur: 0 !default;
+$track-shadow-color: rgba(0, 0, 0, .2) !default;
+$track-border-width: 0 !default;
+$track-border-color: rgba(0, 0, 0, .2) !default;
+
+$track-radius: 2px !default;
+$contrast: 5% !default;
+
+@mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
+  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+}
+
+@mixin track {
+  cursor: pointer;
+  height: $track-height;
+  transition: all .2s ease;
+  width: $track-width;
+}
+
+@mixin thumb {
+  @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+  background: $thumb-color;
+  border: $thumb-border-width solid $thumb-border-color;
+  border-radius: $thumb-radius;
+  cursor: pointer;
+  height: $thumb-height;
+  width: $thumb-width;
+}
+
+[type='range'] {
+  -webkit-appearance: none;
+  margin: $thumb-height / 2 0;
+  width: $track-width;
+  background: transparent;
+  border: none;
+
+  &:focus {
+    outline: 0;
+
+    &::-webkit-slider-runnable-track {
+      background: lighten($track-color, $contrast);
+    }
+
+    &::-ms-fill-lower {
+      background: $track-color;
+    }
+
+    &::-ms-fill-upper {
+      background: lighten($track-color, $contrast);
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    @include track;
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+  }
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+    margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+  }
+
+  &::-moz-range-track {
+    @include track;
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &::-ms-track {
+    @include track;
+    background: transparent;
+    border-color: transparent;
+    border-width: ($thumb-height / 2) 0;
+    color: transparent;
+  }
+
+  &::-ms-fill-lower {
+    background: darken($track-color, $contrast);
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius * 2;
+  }
+
+  &::-ms-fill-upper {
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius * 2;
+  }
+
+  &::-ms-thumb {
+    @include thumb;
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,26 @@
+
+@import "./colors.scss";
+@import "./sizes.scss";
+
+.boxShadow {
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+}
+
+.boxShadowHigh {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.card {
+  @extend .boxShadow;
+  display: block;
+  padding: 10px;
+  border-radius: 2px;
+  background: $color-fg-light;
+}
+
+.panel {
+  @extend .boxShadow;
+  display: block;
+  border-radius: 2px;
+  background: $color-fg-dark;
+}
