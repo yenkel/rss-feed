@@ -30,7 +30,11 @@ class BookContainer extends React.Component {
     return (
        <div>
          <div className={styles.booksHeader}>
-           <span>{this.props.genre}</span>{" Books"}
+           <Button styleName='primary'
+              onClick={() => this._toggleModal(books.length)}
+              className={styles.newBookButton}>
+              {"Add New Book"}
+           </Button>
            <Separator />
          </div>
          <div className={styles.libraryContainer}>
@@ -73,17 +77,17 @@ class BookContainer extends React.Component {
     }
   }
   _displayModal() {
-    const { books } = this.props
-       if (this.state.showModal !== false) {
-         return (
-           <EditModal
-             closePopup={() => this.setState({showModal: false})}
-             book={books[this.state.showModal]}
-             index={this.state.showModal}
-             onSubmit={this.props.onSubmit}
-           />
-         )
-       }
+    const { books, onSubmit } = this.props
+    if (this.state.showModal !== false) {
+      return (
+        <EditModal
+          closePopup={() => this.setState({showModal: false})}
+          book={books[this.state.showModal] || ''}
+          index={this.state.showModal}
+          onSubmit={onSubmit}
+        />
+      )
+    }
   }
   render() {
     const { books } = this.props

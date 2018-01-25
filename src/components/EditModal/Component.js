@@ -10,37 +10,52 @@ class EditModal extends React.Component {
     this._getInput = this._getInput.bind(this)
     this._getCloseButton = this._getCloseButton.bind(this)
     this._getSubmitButton = this._getSubmitButton.bind(this)
+    this._onSubmit = this._onSubmit.bind(this)
     this.state = {
        title: '',
        authors: '',
        publishedDate: ''
     }
   }
+  _dateIsValid(date) {
+    return ((
+      date
+      && date.length > 6
+      && moment(date, "YYYY-MM-DD").isValid()
+    ))
+  }
+  _stringIsValid(str) {
+    return ((
+      str
+      && str.length
+      && str !== ''
+    ))
+  }
   _getInput(book) {
     const { title, authors, publishedDate } = this.state
-    const validTitle = typeof title === 'string' && title !== ''
-    const validAuthor = typeof authors === 'string' && authors !== ''
-    const validDate = moment(publishedDate, 'YYYY-MM-DD').isValid()
+    const validTitle = this._stringIsValid(title)
+    const validAuthor = this._stringIsValid(authors)
+    const validDate = this._dateIsValid(publishedDate)
      return (
        <div className={styles.editContainer}>
          <div className={styles.section}>
            <span>{'Title'}</span>
            <input className={cx(styles.input, (!validTitle && styles.invalid), (validTitle && styles.valid))}
-                  placeholder={book.title}
+                  placeholder={(book !== '') ? book.title : 'Enter title'}
                   onChange={(e) => this.setState({title: e.target.value})}
             />
          </div>
          <div className={styles.section}>
            <span>{'Author'}</span>
            <input className={cx(styles.input, (!validAuthor && styles.invalid), (validAuthor && styles.valid))}
-                  placeholder={book.authors[0]}
+                  placeholder={(book !== '') ? book.authors[0] : 'Enter author'}
                   onChange={(e) => this.setState({authors: e.target.value})}
            />
          </div>
          <div className={styles.section}>
            <span>{'Date'}</span>
            <input className={cx(styles.input, (!validDate && styles.invalid), (validTitle && styles.valid))}
-                  placeholder={book.publishedDate}
+                  placeholder={(book !== '') ? book.publishedDate : 'YYYY-MM-DD'}
                   onChange={(e) => this.setState({publishedDate: e.target.value})}
            />
          </div>
@@ -57,11 +72,15 @@ class EditModal extends React.Component {
         </Button>
     )
   }
+  _onSubmit(newState, index) {
+    this.props.onSubmit(newState, index)
+    this.props.closePopup()
+  }
   _getSubmitButton(index) {
     const { title, authors, publishedDate } = this.state
-    const validTitle = typeof title === 'string' && title !== ''
-    const validAuthor = typeof authors === 'string' && authors !== ''
-    const validDate = moment(publishedDate, 'YYYY-MM-DD').isValid()
+    const validTitle = this._stringIsValid(title)
+    const validAuthor = this._stringIsValid(authors)
+    const validDate = this._dateIsValid(publishedDate)
     const validForm = validTitle && validAuthor && validDate
     return (
         <div>
@@ -73,7 +92,7 @@ class EditModal extends React.Component {
           }
           <Button
             className={cx(styles.submitButton, (!validForm && styles.invalidButton))}
-            onClick={() => this.props.onSubmit(this.state, index)}
+            onClick={() => this._onSubmit(this.state, index)}
             styleName='valid'>
               {'Submit'}
             </Button>
