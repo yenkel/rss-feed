@@ -11,6 +11,7 @@ class BookPage extends React.Component {
     super(props)
     this._onSubmit = this._onSubmit.bind(this)
     this._onDelete = this._onDelete.bind(this)
+    this._ifExists = this._ifExists.bind(this)
     this.state = {
        books: []
     }
@@ -22,12 +23,18 @@ class BookPage extends React.Component {
           this.setState({ books })
       })
   }
-  _isInArray(name, val, arr) {
-    return ((
-      arr
-      && arr.length
-      && arr.map(r=>r[name]).indexOf(val) === -1
-    ))
+  _ifExists(title) {
+    const { books } = this.state
+    let titles = []
+    const getTitles = () => {
+       books.map(book => {
+         titles.push(book.title.toLowerCase())
+       })
+       return titles
+    }
+    if (getTitles().includes(title.toLowerCase())) {
+      return true
+    }
   }
   _onSubmit(values, index) {
     const { books } = this.state
@@ -37,7 +44,7 @@ class BookPage extends React.Component {
     const toCapitalize = (str) => {
       return str.charAt(0).toUpperCase() + str.slice(1)
     }
-    if (this._isInArray("title", values.title, books)) {
+    if (this._ifExists(values.title)) {
       window.alert("This book title already exists")
       return
     }
