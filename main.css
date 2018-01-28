@@ -1,9 +1,0 @@
-html {
-  height: calc(100% - 8px);
-}
-
-body {
-    font-family: 'Roboto', 'Helvetica', sans-serif;
-    height: 100%;
-    margin: 0;
-}
