@@ -42,10 +42,11 @@ const rules = [
 ]
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
 
   entry: [
-    'webpack-hot-middleware/client',
+    'babel-polyfill',
+    'react-hot-loader/patch',
     './src/index'
   ],
 
@@ -57,7 +58,6 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
   ],
 
   module: {
