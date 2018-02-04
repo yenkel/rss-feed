@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // Components
-import BookPage from './components/BookPage'
+import RssContainer from './components/RssContainer'
 
 
 ReactDOM.render(
-  <BookPage />,
+  <RssContainer />,
   document.getElementById('app')
 );
