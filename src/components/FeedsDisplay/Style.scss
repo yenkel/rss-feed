@@ -22,23 +22,24 @@
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   box-shadow: 0 2px 7px rgba(6, 6, 6, 0.2);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .feedTitle {
   background-color: #2B5FD9;
   position: absolute;
-  height: 36px;
+  height: 31px;
   width: 100%;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
-  line-height: 2.2;
+  line-height: 2;
   padding: 0 10px;
   box-sizing: border-box;
   color: white;
   font-size: 16px;
   text-transform: capitalize;
   font-family: 'Roboto', 'Helvetica', sans-serif;
+  text-align: center;
 }
 
 .feedContent {
@@ -47,13 +48,14 @@
   font-weight: 500;
   color: #2D3240;
   position: relative;
-  top: 43px;
-  width: 95%;
+  top: 33px;
+  width: 98%;
   display: inline-block;
   text-transform: capitalize;
   font-family: 'Roboto', 'Helvetica', sans-serif;
   opacity: 0.8;
   display: block;
   line-height: 1.8;
-  height: auto;
+  height: 114px;
+  overflow: auto;
 }

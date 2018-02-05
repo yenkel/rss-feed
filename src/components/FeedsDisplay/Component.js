@@ -22,6 +22,12 @@ const FeedsDisplay = React.createClass({
             )
          })
        )
+    } else {
+      return (
+        <div className={styles.url}>
+          {'No Feeds to display'}
+        </div>
+      )
     }
   },
   render() {

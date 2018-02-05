@@ -11,7 +11,7 @@
 .sidebarContainer {
   background-color: $color-fg;
   display: inline-block;
-  width: 270px;
+  width: 300px;
   height: 100%;
   overflow: hidden;
   border-right: 1px solid $color-border;
@@ -21,7 +21,7 @@
 .mainScreenContainer {
   background-color: $color-fg;
   display: inline-block;
-  width: calc(100% - 270px);
+  width: calc(100% - 300px);
   height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -74,7 +74,7 @@
     top: 15px;
     text-align: center;
     border-radius: 20px;
-    width: 200px;
+    width: 230px;
     border-color: rgba(#000000, 0.17);
     outline: none;
   }
