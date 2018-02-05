@@ -1,0 +1,14 @@
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: calc(100% - 8px);
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
+}

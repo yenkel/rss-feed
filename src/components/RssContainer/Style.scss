@@ -1,24 +1,96 @@
+@import "../StylesConstants/index.scss";
+@import "../StylesConstants/colors.scss";
+
 .root {
   height: 100%;
+  min-width: 850px;
   overflow: hidden;
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+  background: $color-fg;
 }
 
-.booksPaneContainer {
+.sidebarContainer {
+  background-color: $color-fg;
   display: inline-block;
-  width: 100%;
+  width: 270px;
   height: 100%;
   overflow: hidden;
+  border-right: 1px solid $color-border;
+  box-sizing: border-box;
 }
 
-.booksContainer {
-  min-width: 760px;
-  min-height: 525px;
+.mainScreenContainer {
+  background-color: $color-fg;
+  display: inline-block;
+  width: calc(100% - 270px);
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  box-sizing: border-box;
+}
+
+.urlContainer {
   width: 100%;
   height: 100%;
+  padding-right: 3px;
   display: inline-block;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  background: #FFFFFF;
+  background: $color-fg;
+}
+
+.feedsContainer {
+  min-width: 600px;
+  min-height: 520px;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  -webkit-box-shadow: -2px 0 30px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: white;
+  vertical-align: top;
+  position: relative;
+}
+
+.header {
+  width: 100%;
+  height: 70px;
+  border-bottom: 2px solid rgba(#000000, 0.17);
+  display: inline-block;
+}
+
+.inputContainer {
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+  vertical-align: top;
+  .input {
+    height: 30px;
+    position: relative;
+    top: 15px;
+    text-align: center;
+    border-radius: 20px;
+    width: 200px;
+    border-color: rgba(#000000, 0.17);
+    outline: none;
+  }
+}
+
+.imageContainer {
+  display: inline-block;
+  width: 20%;
+  height: 100%;
+  vertical-align: top;
+  text-align: center;
+  img {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    top: 13px;
+    cursor: pointer;
+  }
 }
